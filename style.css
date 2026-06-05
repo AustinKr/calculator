@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(202, 202, 202);
+}
+.container {
+    width: 600px;
+    height: 750px;
+    margin: 20px auto;
+    display: flex;
+
+    background-color: rgb(255, 255, 255);
+    border: 5px solid black;
+    box-sizing: content-box;
+}
+.centered-text {
+    text-align: center;
+}
