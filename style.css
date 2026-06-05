@@ -1,3 +1,6 @@
+* {
+    user-select: none;
+}
 body {
     background-color: rgb(202, 202, 202);
 }
@@ -13,30 +16,57 @@ body {
     box-sizing: content-box;
 }
 .panel-display {
-    flex: 1 0 auto;
+    flex: 1 0 0;
 
     background-color: white;
 }
 .panel-commands {
-    flex: 2 0 auto;
-
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+    flex: 2 0 0;
 
     padding: 10px;
 
     border: 5px solid black;
     box-sizing: content-box;
 }
-.panel-commands button {
-    height: 60px;
-    flex: 1 0 auto;
+.panel-arithmetic {
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.panel-numpad {
+    width: 250px;
+    margin: 50px 0 0;
 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    
+    gap: 5px;
+}
+
+button {
     padding: 10px;
     font-size: 40px;
 
     border: 3px solid black;
+    box-sizing: border-box;
+}
+.panel-arithmetic button {
+    height: 60px;
+    flex: 1 0 auto;
+}
+.panel-numpad button {
+    width: 70px;
+    height: 70px;
+    flex: 0 0 auto;
+}
+.panel-numpad .numpad0 {
+    width: 120px;
+    height: 70px;
+    margin: 0 45px;
+    flex: 0 0 auto;
+
 }
 
 .centered-text {
