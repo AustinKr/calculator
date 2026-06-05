@@ -1,16 +1,44 @@
 body {
     background-color: rgb(202, 202, 202);
 }
-.container {
-    width: 600px;
-    height: 750px;
-    margin: 20px auto;
-    display: flex;
 
-    background-color: rgb(255, 255, 255);
+.container {
+    width: 550px;
+    height: 700px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+
     border: 5px solid black;
     box-sizing: content-box;
 }
+.panel-display {
+    flex: 1 0 auto;
+
+    background-color: white;
+}
+.panel-commands {
+    flex: 2 0 auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    padding: 10px;
+
+    border: 5px solid black;
+    box-sizing: content-box;
+}
+.panel-commands button {
+    height: 60px;
+    flex: 1 0 auto;
+
+    padding: 10px;
+    font-size: 40px;
+
+    border: 3px solid black;
+}
+
 .centered-text {
     text-align: center;
 }
