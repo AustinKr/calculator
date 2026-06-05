@@ -1,18 +1,52 @@
-function add(a, b)
+function evaluate(a, b, sign)
 {
-    return a + b;
+    switch(sign)
+    {
+        case 0:
+            return a + b;
+        case 1:
+            return a - b;
+        case 2:
+            return a * b;
+        case 3:
+            return a / b;
+    }
+    return NaN;
 }
-function subtract(a, b)
+
+let entries = [null, null, null];
+
+function getCurrentEntryID()
 {
-    return a - b;
+    for(let i = 0; i < entries.length; i++)
+    {
+        if(entries[i] === null)
+            return i;
+    }
+    return entries.length;
 }
-function divide(a, b)
+function getEntriesDisplayText()
 {
-    return a / b;
-}
-function multiply(a, b)
-{
-    return a * b;
+    let sign = "";
+    switch(entries[1])
+    {
+        case 0:
+            sign = "+";
+            break;
+        case 1:
+            sign = "-";
+            break;
+        case 2:
+            sign = "X";
+            break;
+        case 3:
+            sign = "÷";
+            break;
+    }
+    let a = entries[0] !== null ? entries[0] : "";;
+    let b = entries[2] !== null ? entries[2] : "";
+
+    return `${a} ${sign} ${b}`;
 }
 
 function main()
@@ -23,8 +57,49 @@ function main()
     const panelNumpad = document.querySelector(".panel-numpad");
     panelNumpad.addEventListener("click", event => {
         let index = Array.from(panelNumpad.children).indexOf(event.target);
-        if(index >= 0)
-            displayCurrent.textContent = index;
+        if(index < 0)
+            return;
+
+        let currentID = getCurrentEntryID();
+        if(currentID <= 1)
+            entries[0] = index;
+        else if(currentID > 1)
+            entries[2] = index;
+        else
+        {
+            alert("Please enter a difference type of value");
+            return;
+        }
+        displayCurrent.textContent = getEntriesDisplayText();
+    });
+    const panelArithmetic = document.querySelector(".panel-arithmetic");
+    panelArithmetic.addEventListener("click", event => {
+        let index = Array.from(panelArithmetic.children).indexOf(event.target);
+        if(index < 0)
+            return;
+
+        let currentID = getCurrentEntryID();
+        if(currentID < 1)
+        {
+            alert("Please enter a difference type of value");
+            return;
+        }
+        entries[1] = index;
+        displayCurrent.textContent = getEntriesDisplayText();
+    });
+
+    document.getElementById("evaluate-button").addEventListener("click", event => {
+        let result = evaluate(entries[0], entries[2], entries[1]);
+        displayResult.textContent = result;
+        displayCurrent.textContent = "";
+        entries = [result, null, null];
+    });
+    document.getElementById("delete-button").addEventListener("click", event => {
+        let id = Math.max(0, getCurrentEntryID() - 1);
+        entries[id] = null;
+        if(id === 0)
+            displayResult.textContent = "";
+        displayCurrent.textContent = getEntriesDisplayText();
     });
 }
 main();
