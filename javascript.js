@@ -20,16 +20,16 @@ function isEntryEmpty(entry) {
 function marshalEntry(entry) {
     return isEntryEmpty(entry) ? "" : entry.toString();
 }
-function removeDigitFromEntry(entry, digitCount = 1)
+function removeDigitFromEntry(entry, digitCount = 1, defaulToNull = true)
 {
     let str = marshalEntry(entry);
     let newCount = str.length - digitCount;
     if(newCount <= 0)
-        return null;
+        return defaulToNull ? null : "0";
     return str.substring(0, newCount);
 }
 
-let entries = [null, null, null];
+let entries = ["0", null, null];
 let shouldAddDecimalPoint = false;
 
 function setEntry(index, digit)
@@ -44,7 +44,7 @@ function setEntry(index, digit)
         entries[index] = marshalEntry(entries[index]).concat(digitStr);
         return;
     }
-    entries[index] = removeDigitFromEntry(entries[index]);
+    entries[index] = removeDigitFromEntry(entries[index], 1, index === 2);
 }
 
 function getCurrentEntryID()
@@ -111,8 +111,8 @@ function enterDeleteDigit()
 }
 function enterClear()
 {
-    entries = [null, null, null];
-    displayCurrent.textContent = "";
+    entries = ["0", null, null];
+    displayCurrent.textContent = "0";
     displayResult.textContent = "";
 }
 function enterOperator(operatorID)
@@ -188,7 +188,6 @@ function main()
                 enterOperator(3);
                 break;
 
-            case "Enter":
             case "=":
                 enterEvaluate();
                 break;
