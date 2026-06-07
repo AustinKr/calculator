@@ -98,7 +98,7 @@ function enterDigit(digit)
 
     displayCurrent.textContent = getEntriesDisplayText();
 }
-function deleteDigit()
+function enterDeleteDigit()
 {
     let id = getCurrentEntryID() - 1;
     switch (id) {
@@ -139,15 +139,67 @@ function enterEvaluate()
 
 function main()
 {
-    // const container = document.querySelector(".container");
-    // container.addEventListener("keyup", event =>
-    // {
-    //     switch (event.key)
-    //     {
-    //         case 0:
+    document.querySelector("body").addEventListener("keyup", event =>
+    {
+        switch (event.key)
+        {
+            case "0":
+                enterDigit(0);
+                break;
+            case "1":
+                enterDigit(1);
+                break;
+            case "2":
+                enterDigit(2);
+                break;
+            case "3":
+                enterDigit(3);
+                break;
+            case "4":
+                enterDigit(4);
+                break;
+            case "5":
+                enterDigit(5);
+                break;
+            case "6":
+                enterDigit(6);
+                break;
+            case "7":
+                enterDigit(7);
+                break;
+            case "8":
+                enterDigit(8);
+                break;
+            case "9":
+                enterDigit(9);
+                break;
 
-    //     }
-    // });
+            case "+":
+                enterOperator(0);
+                break;
+            case "-":
+                enterOperator(1);
+                break;
+            case "*":
+                enterOperator(2);
+                break;
+            case "/":
+                enterOperator(3);
+                break;
+
+            case "Enter":
+            case "=":
+                enterEvaluate();
+                break;
+            case "Backspace":
+                enterDeleteDigit();
+                break;
+
+            case ".":
+                shouldAddDecimalPoint = true;
+                break;
+        }
+    });
 
     const panelNumpad = document.querySelector(".panel-numpad");
     panelNumpad.addEventListener("click", event =>
@@ -157,7 +209,7 @@ function main()
             return;
         enterDigit(index);
     });
-    document.getElementById("delete-button").addEventListener("click", () => deleteDigit());
+    document.getElementById("delete-button").addEventListener("click", () => enterDeleteDigit());
 
     const panelArithmetic = document.querySelector(".panel-arithmetic");
     panelArithmetic.addEventListener("click", event =>
