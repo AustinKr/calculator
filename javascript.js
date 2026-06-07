@@ -14,11 +14,10 @@ function evaluate(a, b, sign)
     return NaN;
 }
 function isFloatEntryEmpty(float) {
-    return float === null || Number.isNaN(float) || float === Infinity;
+    return float === null || Number.isNaN(float) || float === Infinity || float === -Infinity;
 }
 function floatEntryToString(float) {
-    let isEmpty = isFloatEntryEmpty(float);
-    return isEmpty ? "" : float.toString();
+    return isFloatEntryEmpty(float) ? "" : float.toString();
 }
 function appendDigitToFloat(float, digitToAppend) {
     return parseFloat(floatEntryToString(float).concat(digitToAppend));
