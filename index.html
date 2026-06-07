@@ -8,39 +8,47 @@
     <script src="javascript.js" defer></script>
 </head>
 <body>
-    <h1 class="centered-text">Standard Calculator</h1>
     <div class="container">
-        <div class="panel-display">
-            <div class="display-result"></div>
-            <div class="display-current">0</div>
+        <div></div>
+        <div id="main-column">
+            <h1 class="title-text">Standard Calculator</h1>
+            <div class="calculator-container">
+                <div class="panel-display">
+                    <div class="display-result"></div>
+                    <div class="display-current">0</div>
+                </div>
+                <div class="panel-commands">
+                    <div class="panel-arithmetic">
+                        <button>+</button>
+                        <button>-</button>
+                        <button>x</button>
+                        <button>÷</button>
+                    </div>
+                    <div class="panel-special">
+                        <button id="decimal-button">.</button>
+                    </div>
+                    <div class="panel-numpad">
+                        <button class="numpad0">0</button>
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>4</button>
+                        <button>5</button>
+                        <button>6</button>
+                        <button>7</button>
+                        <button>8</button>
+                        <button>9</button>
+                    </div>
+                    <div class="panel-other">
+                        <button id="clear-button">Clr</button>
+                        <button id="delete-button">Del</button>
+                        <button id="evaluate-button">=</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="panel-commands">
-            <div class="panel-arithmetic">
-                <button>+</button>
-                <button>-</button>
-                <button>x</button>
-                <button>÷</button>
-            </div>
-            <div class="panel-special">
-                <button id="decimal-button">.</button>
-            </div>
-            <div class="panel-numpad">
-                <button class="numpad0">0</button>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-            </div>
-            <div class="panel-other">
-                <button id="clear-button">Clr</button>
-                <button id="delete-button">Del</button>
-                <button id="evaluate-button">=</button>
-            </div>
+        <div>
+            <button id="dark-mode-button"> <img src="dark-mode-icon.png" width="64" height="64"/></button>
         </div>
     </div>
 </body>

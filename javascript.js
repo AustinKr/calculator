@@ -226,5 +226,25 @@ function main()
     document.getElementById("clear-button").addEventListener("click", () => enterClear());
     document.getElementById("evaluate-button").addEventListener("click", () => enterEvaluate());
     document.getElementById("decimal-button").addEventListener("click", () => shouldAddDecimalPoint = true);
+
+    const darkModeButton = document.getElementById("dark-mode-button");
+    darkModeButton.addEventListener("click", () =>
+    {
+        darkModeButton.children[0].classList.toggle("light-mode-button");
+        document.querySelector("body").classList.toggle("dark-mode-background");
+
+        for (let node of document.getElementById("main-column").querySelectorAll("*")) {
+            switch (node.tagName)
+            {
+                case "DIV":
+                    node.classList.toggle("dark-mode-panel");
+                    break;
+                case "BUTTON":
+                    node.classList.toggle("dark-mode-button");
+                default:
+                    node.classList.toggle("dark-mode-text");
+            }
+        }
+    });
 }
 main();
