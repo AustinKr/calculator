@@ -102,11 +102,7 @@ function main()
             setEntry(0, index);
         else if(currentID > 1)
             setEntry(2, index);
-        else
-        {
-            alert("Please enter a difference type of value");
-            return;
-        }
+
         displayCurrent.textContent = getEntriesDisplayText();
     });
     document.getElementById("delete-button").addEventListener("click", event =>
@@ -137,7 +133,7 @@ function main()
         let currentID = getCurrentEntryID();
         if(currentID < 1)
         {
-            alert("Please enter a difference type of value");
+            displayResult.textContent = "enter a number";
             return;
         }
         entries[1] = index;
@@ -148,7 +144,7 @@ function main()
     {
         if (getCurrentEntryID() < 2)
         {
-            alert("Please enter a difference type of value");
+            displayResult.textContent = "enter a expression";
             return;
         }
 
