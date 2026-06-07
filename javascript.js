@@ -30,13 +30,23 @@ function removeDigitFromFloat(float, digitCount = 1)
         return null;
     return parseFloat(str.substring(0, newCount));
 }
+function containsDecimalPoint(float) {
+    return (float - Math.floor(float)) !== 0;
+}
 
 let entries = [null, null, null];
+let shouldAddDecimalPoint = false;
+
 function setEntry(index, digit)
 {
     if (digit !== null)
     {
-        entries[index] = appendDigitToFloat(entries[index], digit);
+        let digitStr = digit.toString();
+        if (shouldAddDecimalPoint && !containsDecimalPoint(entries[index]))
+            digitStr = (digit / 10.0).toString().substr(1); // add decimal point, and omit 0 from '0.[digit]'  
+        shouldAddDecimalPoint = false;
+
+        entries[index] = appendDigitToFloat(entries[index], digitStr);
         return;
     }
     entries[index] = removeDigitFromFloat(entries[index]);
@@ -148,9 +158,6 @@ function main()
         entries = [result, null, null];
     });
 
-    document.getElementById("decimal-button").addEventListener("click", event =>
-    {
-
-    });
+    document.getElementById("decimal-button").addEventListener("click", () => shouldAddDecimalPoint = true);
 }
 main();
