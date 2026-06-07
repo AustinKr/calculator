@@ -109,6 +109,12 @@ function enterDeleteDigit()
     }
     displayCurrent.textContent = getEntriesDisplayText();
 }
+function enterClear()
+{
+    entries = [null, null, null];
+    displayCurrent.textContent = "";
+    displayResult.textContent = "";
+}
 function enterOperator(operatorID)
 {
     let currentID = getCurrentEntryID();
@@ -187,7 +193,10 @@ function main()
                 enterEvaluate();
                 break;
             case "Backspace":
-                enterDeleteDigit();
+                if (event.shiftKey)
+                    enterClear();
+                else
+                    enterDeleteDigit();
                 break;
 
             case ".":
@@ -215,6 +224,7 @@ function main()
         enterOperator(index);
     });
 
+    document.getElementById("clear-button").addEventListener("click", () => enterClear());
     document.getElementById("evaluate-button").addEventListener("click", () => enterEvaluate());
     document.getElementById("decimal-button").addEventListener("click", () => shouldAddDecimalPoint = true);
 }
