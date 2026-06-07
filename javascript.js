@@ -37,7 +37,7 @@ function setEntry(index, digit)
     if (digit !== null)
     {
         let digitStr = digit.toString();
-        if (shouldAddDecimalPoint && !entries[index].includes("."))
+        if (shouldAddDecimalPoint && !marshalEntry(entries[index]).includes("."))
             digitStr = ".".concat(digitStr);
         shouldAddDecimalPoint = false;
         
