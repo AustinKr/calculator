@@ -13,28 +13,23 @@ function evaluate(a, b, sign)
     }
     return NaN;
 }
-function isFloatEntryEmpty(float) {
+function isEntryEmpty(entry) {
+    let float = parseFloat(entry); 
     return float === null || Number.isNaN(float) || float === Infinity || float === -Infinity;
 }
-function floatEntryToString(float) {
-    return isFloatEntryEmpty(float) ? "" : float.toString();
+function marshalEntry(entry) {
+    return isEntryEmpty(entry) ? "" : entry.toString();
 }
-function appendDigitToFloat(float, digitToAppend) {
-    return parseFloat(floatEntryToString(float).concat(digitToAppend));
-}
-function removeDigitFromFloat(float, digitCount = 1)
+function removeDigitFromEntry(entry, digitCount = 1)
 {
-    let str = floatEntryToString(float);
+    let str = marshalEntry(entry);
     let newCount = str.length - digitCount;
     if(newCount <= 0)
         return null;
-    return parseFloat(str.substring(0, newCount));
-}
-function containsDecimalPoint(float) {
-    return (float - Math.floor(float)) !== 0;
+    return str.substring(0, newCount);
 }
 
-let entries = [null, null, null]; // TODO: make entries A and B store string instead of floats
+let entries = [null, null, null];
 let shouldAddDecimalPoint = false;
 
 function setEntry(index, digit)
@@ -42,21 +37,21 @@ function setEntry(index, digit)
     if (digit !== null)
     {
         let digitStr = digit.toString();
-        if (shouldAddDecimalPoint && !containsDecimalPoint(entries[index]))
+        if (shouldAddDecimalPoint && !entries[index].includes("."))
             digitStr = ".".concat(digitStr);
         shouldAddDecimalPoint = false;
-
-        entries[index] = appendDigitToFloat(entries[index], digitStr);
+        
+        entries[index] = marshalEntry(entries[index]).concat(digitStr);
         return;
     }
-    entries[index] = removeDigitFromFloat(entries[index]);
+    entries[index] = removeDigitFromEntry(entries[index]);
 }
 
 function getCurrentEntryID()
 {
     for(let i = 0; i < entries.length; i++)
     {
-        if (isFloatEntryEmpty(entries[i]))
+        if (isEntryEmpty(entries[i]))
             return i;
     }
     return entries.length;
@@ -79,8 +74,8 @@ function getEntriesDisplayText()
             sign = "÷";
             break;
     }
-    let a = entries[0] !== null ? entries[0] : "";;
-    let b = entries[2] !== null ? entries[2] : "";
+    let a = entries[0] !== null ? parseFloat(entries[0]) : "";;
+    let b = entries[2] !== null ? parseFloat(entries[2]) : "";
 
     return `${a} ${sign} ${b}`;
 }
@@ -127,11 +122,11 @@ function enterOperator(operatorID)
 function enterEvaluate()
 {
     if (getCurrentEntryID() < 2) {
-        displayResult.textContent = "enter a expression";
+        displayResult.textContent = "enter an expression";
         return;
     }
 
-    let result = evaluate(entries[0], entries[2], entries[1]);
+    let result = evaluate(parseFloat(entries[0]), parseFloat(entries[2]), entries[1]);
     displayResult.textContent = result;
     displayCurrent.textContent = "";
     entries = [result, null, null];
