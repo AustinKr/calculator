@@ -83,6 +83,7 @@ function getEntriesDisplayText()
 
 const displayResult = document.querySelector(".display-result");
 const displayCurrent = document.querySelector(".display-current");
+const displayMessages = document.querySelector(".display-messages");
 
 function enterDigit(digit)
 {
@@ -123,12 +124,13 @@ function enterClear()
     entries = ["0", null, null];
     displayCurrent.textContent = "0";
     displayResult.textContent = "";
+    displayMessages.textContent = "";
 }
 function enterOperator(operatorID)
 {
     let currentID = getCurrentEntryID();
     if (currentID < 1) {
-        displayResult.textContent = "enter a number";
+        displayMessages.textContent = "enter a number";
         return;
     }
     shouldTryClearEntry = false; // retain any previous result as entry A
@@ -138,14 +140,16 @@ function enterOperator(operatorID)
 function enterEvaluate()
 {
     if (getCurrentEntryID() < 2) {
-        displayResult.textContent = "enter an expression";
+        displayMessages.textContent = "enter an expression";
         return;
     }
 
-    let result = evaluate(parseFloat(entries[0]), parseFloat(entries[2]), entries[1]);
+    const result = evaluate(parseFloat(entries[0]), parseFloat(entries[2]), entries[1]);
+    enterClear();
+    entries[0] = result;
     displayResult.textContent = result;
     displayCurrent.textContent = "";
-    entries = [result, null, null];
+
     shouldTryClearEntry = true; // when user types a number, but retain when types an operator or backspace
 }
 
