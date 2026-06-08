@@ -31,6 +31,7 @@ function removeDigitFromEntry(entry, digitCount = 1, defaulToNull = true)
 
 let entries = ["0", null, null];
 let shouldAddDecimalPoint = false;
+let shouldTryClearEntry = false;
 
 function setEntry(index, digit)
 {
@@ -85,6 +86,12 @@ const displayCurrent = document.querySelector(".display-current");
 
 function enterDigit(digit)
 {
+    if (shouldTryClearEntry)
+    {
+        shouldTryClearEntry = false;
+        entries[0] = "0";
+    }
+
     let currentID = getCurrentEntryID();
     if (currentID <= 1)
         setEntry(0, digit);
@@ -95,6 +102,8 @@ function enterDigit(digit)
 }
 function enterDeleteDigit()
 {
+    shouldTryClearEntry = false;
+
     let id = getCurrentEntryID() - 1;
     switch (id) {
         case -1: // No entries in current line
@@ -122,6 +131,7 @@ function enterOperator(operatorID)
         displayResult.textContent = "enter a number";
         return;
     }
+    shouldTryClearEntry = false; // retain any previous result as entry A
     entries[1] = operatorID;
     displayCurrent.textContent = getEntriesDisplayText();
 }
@@ -136,6 +146,7 @@ function enterEvaluate()
     displayResult.textContent = result;
     displayCurrent.textContent = "";
     entries = [result, null, null];
+    shouldTryClearEntry = true; // when user types a number, but retain when types an operator or backspace
 }
 
 function main()
